@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<html xmlns:th="htt://www.thymleaf.org">
+<html xmlns:th="http://www.thymleaf.org">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap CSS -->
         <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css";
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity=""
             crossorigin="anonymous"
@@ -26,7 +26,7 @@
                     <img th:src="@{/images/logo.itses.png}"
                          width="125" height="38"
                          class="d-inline-block align-top">
-                    METODOS NUMERICOS
+                    METODOS NUMERICOS - Regla Falsa
 
                 </a>
             </div>
@@ -48,20 +48,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="solve,iter:${solvebisection}">
+            <tr th:each="solve,iter:${solveReglaFalsa}">
                 <td th:text="${iter.index}"># de Iteración</td>
                 <td th:text="${solve.XL}">Valor inferior XL</td>
                 <td th:text="${solve.XU}">Valor superior XU</td>
                 <td th:text="${solve.XR}">Valor calculado Raiz XR</td>
-                <td th:text="${solve.FXL}">Funcion ecaluada en XL</td>
-                <td th:text="${solve.FXU}">Funcion ecaluada en XU</td>
-                <td th:text="${solve.FXR}">Funcion ecaluada en XR</td>
+                <td th:text="${solve.FXL}">Funcion evaluada en XL</td>
+                <td th:text="${solve.FXU}">Funcion evaluada en XU</td>
+                <td th:text="${solve.FXR}">Funcion evaluada en XR</td>
                 <td th:text="${solve.Ea}">Error estimado aproximación actual</td>
 
             </tr>
 
         </tbody>
     </table>
+
     <div class="d-flex gap-3">
         <a href="/" class="btn btn-primary">Volver al Inicio</a>
     </div>

@@ -3,6 +3,7 @@ package mx.edu.itses.aja.MetodosNumericos.services;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.itses.aja.MetodosNumericos.domain.Biseccion;
+import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
 import mx.edu.itses.aja.MetodosNumericos.services.Funciones;
 import mx.edu.itses.aja.MetodosNumericos.services.UnidadllService;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UnidadIIServiceImpl implements UnidadllService {
 
+    @Override
     public ArrayList<Biseccion> AlgoritmoBiseccion(Biseccion biseccion){
         ArrayList<Biseccion> respuesta = new ArrayList<>();
         double XL, XU, XRa, XRn, FXL, FXU, FXR, Ea;
@@ -61,4 +63,57 @@ public class UnidadIIServiceImpl implements UnidadllService {
         return respuesta;
     }
 
+    @Override
+    public ArrayList<ReglaFalsa> AlgoritmoReglaFalsa(ReglaFalsa reglafalsa) {
+        ArrayList<ReglaFalsa> respuesta = new ArrayList<>();
+        double XL, XU, XRa, XRn, FXL, FXU, FXR, Ea;
+        
+        XL = reglafalsa.getXL();
+        XU = reglafalsa.getXU();
+        XRa = 0;
+        Ea = 100;
+        // Verificamos que en el intervalo definido haya un cambio de signo
+        FXL = Funciones.Ecuacion(reglafalsa.getFX(), XL);
+        FXU = Funciones.Ecuacion(reglafalsa.getFX(), XU);
+        
+        if (FXL * FXU < 0) {
+            for (int i = 1; i <= reglafalsa.getIteracionesMaximas(); i++) {
+                XRn = XU - (FXU * (XL - XU)) / (FXL - FXU);
+                FXL = Funciones.Ecuacion(reglafalsa.getFX(), XL);
+                FXU = Funciones.Ecuacion(reglafalsa.getFX(), XU);
+                FXR = Funciones.Ecuacion(reglafalsa.getFX(), XRn);
+                if (i != 1) {
+                    Ea = Funciones.ErrorRelativo(XRn, XRa);
+                }
+                ReglaFalsa renglon = new ReglaFalsa();
+                renglon.setXL(XL);
+                renglon.setXU(XU);
+                renglon.setXR(XRn);
+                renglon.setFXL(FXL);
+                renglon.setFXU(FXU);
+                renglon.setFXR(FXR);
+                renglon.setEa(Ea);
+                if (FXL * FXR < 0) {
+                    XU = XRn;
+                } else if (FXL * FXR > 0) {
+                    XL = XRn;
+                } else if (FXL * FXR == 0) {
+                    break;
+                }
+                XRa = XRn;
+                respuesta.add(renglon);
+                if (Ea <= reglafalsa.getEa()) {
+                    break;
+                }
+            }
+        } else {
+            ReglaFalsa renglon = new ReglaFalsa();
+           // renglon.setIntervaloInvalido(true);
+            respuesta.add(renglon);
+        }
+
+        return respuesta;
+    
+    }
+   
 }
