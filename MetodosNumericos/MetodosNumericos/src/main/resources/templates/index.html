@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns:th="htt://www.thymleaf.org">
+    <head>
+        <title>Metodos Numericos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css";
+            rel="stylesheet"
+            integrity=""
+            crossorigin="anonymous"
+            >
+        <!-- Bootstrap JS and dependencies -->
+        <script 
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+            integrity="" 
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img th:src="@{/images/logo.itses.png}"
+                         width="125" height="38"
+                         class="d-inline-block align-top">
+                    METODOS NUMERICOS
+
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <div class="container">
+            <div class="row">
+                <img class="img-fluid w-100"th:src="@{/images/metodosnumericos.png}"/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="text">Solucion de Ecuaciones Algebraicas</h1>
+        <h3 class="text">Metodos Numericos</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/unit2/formbisection">Biseccion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Regla Falsa</a>
+            </li>
+
+       
+    </div>
+</body>
+</html>
