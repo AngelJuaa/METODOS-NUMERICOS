@@ -14,10 +14,17 @@ public class Funciones {
 
         return f;
     }
-    
+
+    public static double EvaluarG(String gx, double xi) {
+        double resultado;
+        Function funcion = new Function(gx);  // g(x) como cadena, por ejemplo: "g(x) = cos(x)"
+        Expression evaluacion = new Expression("g(" + xi + ")", funcion);
+        resultado = evaluacion.calculate();
+        return resultado;
+    }
+
     public static double ErrorRelativo(double ValorNuevo, double ValorAnterior) {
         return abs((ValorNuevo - ValorAnterior) / ValorNuevo * 100);
     }
-
 
 }

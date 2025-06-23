@@ -3,6 +3,7 @@ package mx.edu.itses.aja.MetodosNumericos.web;
 
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.itses.aja.MetodosNumericos.domain.Biseccion;
+import mx.edu.itses.aja.MetodosNumericos.domain.PuntoFijo;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
 import mx.edu.itses.aja.MetodosNumericos.services.Funciones;
 import mx.edu.itses.aja.MetodosNumericos.services.UnidadllService;
@@ -19,6 +20,8 @@ public class Unit2Controller {
     private UnidadllService bisectionservice;
      @Autowired
     private UnidadllService reglafalsaservice;
+     @Autowired
+    private UnidadllService puntofijoservice;
 
     @GetMapping("unit2/formbisection")
     public String formBiseccion(Model model) {
@@ -64,6 +67,29 @@ public class Unit2Controller {
         
         model.addAttribute("solveReglaFalsa", solveReglaFalsa);
         return "/unit2/reglafalsa/solveReglaFalsa";
+    }
+    
+    @GetMapping("unit2/formpuntofijo")
+    public String formpuntofijo(Model model) {
+
+        PuntoFijo puntofijo = new PuntoFijo();
+        
+        model.addAttribute("puntofijo",puntofijo);
+        return "unit2/puntofijo/formpuntofijo";
+    }
+    
+    @PostMapping("/unit2/solvepuntofijo")
+    public String solvepuntofijo(PuntoFijo puntofijo ,Model model){
+        
+        //double valorFX = Funciones.Ecuacion(bisection.getFX(), 2);
+        //log.info("Valor de FX: "+ valorFX);
+        
+        var solvePuntoFijo = puntofijoservice.AlgoritmoPuntoFijo(puntofijo);
+        log.info("Arreglo"+solvePuntoFijo);
+        
+        
+        model.addAttribute("solvepuntofijo", solvePuntoFijo);
+        return "/unit2/puntofijo/solvepuntofijo";
     }
     
 }

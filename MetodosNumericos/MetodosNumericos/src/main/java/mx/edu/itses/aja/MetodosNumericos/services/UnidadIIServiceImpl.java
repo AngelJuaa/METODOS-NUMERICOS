@@ -3,6 +3,7 @@ package mx.edu.itses.aja.MetodosNumericos.services;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.itses.aja.MetodosNumericos.domain.Biseccion;
+import mx.edu.itses.aja.MetodosNumericos.domain.PuntoFijo;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
 import mx.edu.itses.aja.MetodosNumericos.services.Funciones;
 import mx.edu.itses.aja.MetodosNumericos.services.UnidadllService;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class UnidadIIServiceImpl implements UnidadllService {
 
     @Override
-    public ArrayList<Biseccion> AlgoritmoBiseccion(Biseccion biseccion){
+    public ArrayList<Biseccion> AlgoritmoBiseccion(Biseccion biseccion) {
         ArrayList<Biseccion> respuesta = new ArrayList<>();
         double XL, XU, XRa, XRn, FXL, FXU, FXR, Ea;
 
@@ -56,7 +57,7 @@ public class UnidadIIServiceImpl implements UnidadllService {
             }
         } else {
             Biseccion renglon = new Biseccion();
-           // renglon.setIntervaloInvalido(true);
+            // renglon.setIntervaloInvalido(true);
             respuesta.add(renglon);
         }
 
@@ -67,7 +68,7 @@ public class UnidadIIServiceImpl implements UnidadllService {
     public ArrayList<ReglaFalsa> AlgoritmoReglaFalsa(ReglaFalsa reglafalsa) {
         ArrayList<ReglaFalsa> respuesta = new ArrayList<>();
         double XL, XU, XRa, XRn, FXL, FXU, FXR, Ea;
-        
+
         XL = reglafalsa.getXL();
         XU = reglafalsa.getXU();
         XRa = 0;
@@ -75,7 +76,7 @@ public class UnidadIIServiceImpl implements UnidadllService {
         // Verificamos que en el intervalo definido haya un cambio de signo
         FXL = Funciones.Ecuacion(reglafalsa.getFX(), XL);
         FXU = Funciones.Ecuacion(reglafalsa.getFX(), XU);
-        
+
         if (FXL * FXU < 0) {
             for (int i = 1; i <= reglafalsa.getIteracionesMaximas(); i++) {
                 XRn = XU - (FXU * (XL - XU)) / (FXL - FXU);
@@ -108,12 +109,51 @@ public class UnidadIIServiceImpl implements UnidadllService {
             }
         } else {
             ReglaFalsa renglon = new ReglaFalsa();
-           // renglon.setIntervaloInvalido(true);
+            // renglon.setIntervaloInvalido(true);
             respuesta.add(renglon);
         }
 
         return respuesta;
-    
+
     }
-   
+
+    @Override
+    public ArrayList<PuntoFijo> AlgoritmoPuntoFijo(PuntoFijo puntofijo) {
+        ArrayList<PuntoFijo> respuesta = new ArrayList<>();
+        double xi, xr, Ea;
+        double errorAprox = 100;
+        int iterMax = puntofijo.getIteracionesMaximas();
+
+        xi = puntofijo.getXi();
+        Ea = puntofijo.getEa();
+
+        for (int i = 1; i <= iterMax; i++) {
+            xr = Funciones.EvaluarG(puntofijo.getGx(), xi);  // g(xi)
+
+            if (i != 1) {
+                errorAprox = Funciones.ErrorRelativo(xr, xi);
+                if (Double.isNaN(errorAprox)) {
+                    log.error("Error relativo inválido en iteración {}. xi={}, xr={}", i, xi, xr);
+                    break;
+                }
+            }
+
+            PuntoFijo paso = new PuntoFijo();
+            paso.setXi(xi);
+            paso.setXr(xr);
+            paso.setEa(errorAprox);
+            paso.setGx(puntofijo.getGx());
+            paso.setIteracionesMaximas(iterMax);
+            respuesta.add(paso);
+
+            if (errorAprox <= Ea) {
+                break;
+            }
+
+            xi = xr;
+        }
+
+        return respuesta;
+    }
+
 }
