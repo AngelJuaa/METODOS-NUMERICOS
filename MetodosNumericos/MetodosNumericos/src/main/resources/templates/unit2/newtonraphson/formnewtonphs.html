@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Metodos Numericos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity=""
+            crossorigin="anonymous"
+            >
+        <!-- Bootstrap JS and dependencies -->
+        <script 
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"; 
+            integrity="" 
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+
+                    <img th:src="@{/images/logo.itses.png}"
+                         width="125" height="38"
+                         class="d-inline-block align-top">
+                    METODOS NUMERICOS - NewtonRaphson
+
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text">Método de NewtonRaphson</h1>
+        <h3>Ingresa los parámetros siguientes</h3>
+        <form th:action="@{/unit2/solvenewtonphs}" th:object="${newtonraphson}" method="post">
+
+            <div class="mb-3">
+                <label>Valor inicial de XI</label>
+                <input type="text" class="form-control" id="XI"  th:field="*{XI}">
+            </div>
+            <div class="mb-3">
+                <label>Funcion de F(X)</label>
+                <input type="text" class="form-control" id="FX"  th:field="*{FX}">
+            </div>
+           
+            <div class="mb-3">
+                <label>Error Estimado</label>
+                <input type="text" class="form-control" id="Ea" placeholder="Error Estimado" th:field="*{Ea}">
+            </div>
+            <div class="mb-3">
+                <label>Iteraciones Maximas</label>
+                <input type="text" class="form-control" id="iteracionesMaximas" th:field="*{iteracionesMaximas}">
+            </div>
+            <div class="d-flex gap-3">
+                <button type="submit" class="btn btn-primary">Calcular</button>
+                <button type="reset" class="btn btn-secondary">Limpiar</button>
+                 <a href="/" class="btn btn-primary">Volver al Inicio</a>
+            </div>
+
+
+        </form>
+    </div>
+</body>
+</html>

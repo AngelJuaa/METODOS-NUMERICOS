@@ -3,6 +3,7 @@ package mx.edu.itses.aja.MetodosNumericos.services;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.itses.aja.MetodosNumericos.domain.Biseccion;
+import mx.edu.itses.aja.MetodosNumericos.domain.NewtonRaphson;
 import mx.edu.itses.aja.MetodosNumericos.domain.PuntoFijo;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
 import mx.edu.itses.aja.MetodosNumericos.services.Funciones;
@@ -153,6 +154,48 @@ public class UnidadIIServiceImpl implements UnidadllService {
             xi = xr;
         }
 
+        return respuesta;
+    }
+
+    @Override
+    public ArrayList<NewtonRaphson> AlgoritmoNewtonRaphson(NewtonRaphson newtonraphson) {
+        ArrayList<NewtonRaphson> respuesta = new ArrayList<>();
+
+        double XI = newtonraphson.getXI();
+        //double XR = 0;
+        double Ea = 100;
+        String FX = newtonraphson.getFX();
+
+        for (int i = 1; i <= newtonraphson.getIteracionesMaximas(); i++) {
+            double FXi = Funciones.Ecuacion(FX, XI);
+            double FDXi = Funciones.Derivada(FX, XI);
+
+            if (FDXi == 0) {
+                System.err.println("Error: Derivada es cero en XI = " + XI + ". No se puede continuar.");
+                break;
+            }
+            double XR = XI - (FXi / FDXi);
+
+            if (i != 1) {
+                Ea = Funciones.ErrorRelativo(XR, XI);
+            }
+
+            NewtonRaphson renglon = new NewtonRaphson();
+            renglon.setXI(XI);
+            renglon.setFX(String.valueOf(FXi));
+            renglon.setFDX(String.valueOf(FDXi));
+            //renglon.setFDX(FDX);
+            //renglon.setFX(FX);
+            renglon.setXR(XR);
+            renglon.setEa(Ea);
+            renglon.setIteracion(i);
+            respuesta.add(renglon);
+            if (Ea <= newtonraphson.getEa()) {
+                break;
+            }
+
+            XI = XR;
+        }
         return respuesta;
     }
 

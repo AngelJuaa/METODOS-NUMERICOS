@@ -62,6 +62,12 @@
             <artifactId>MathParser.org-mXparser</artifactId>
             <version>6.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.matheclipse</groupId>
+            <artifactId>matheclipse-core</artifactId>
+            <version>3.0.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

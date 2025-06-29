@@ -3,6 +3,7 @@ package mx.edu.itses.aja.MetodosNumericos.web;
 
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.itses.aja.MetodosNumericos.domain.Biseccion;
+import mx.edu.itses.aja.MetodosNumericos.domain.NewtonRaphson;
 import mx.edu.itses.aja.MetodosNumericos.domain.PuntoFijo;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
 import mx.edu.itses.aja.MetodosNumericos.services.Funciones;
@@ -22,6 +23,8 @@ public class Unit2Controller {
     private UnidadllService reglafalsaservice;
      @Autowired
     private UnidadllService puntofijoservice;
+     @Autowired
+    private UnidadllService NewtonRaphsonservice;
 
     @GetMapping("unit2/formbisection")
     public String formBiseccion(Model model) {
@@ -90,6 +93,26 @@ public class Unit2Controller {
         
         model.addAttribute("solvepuntofijo", solvePuntoFijo);
         return "/unit2/puntofijo/solvepuntofijo";
+    }
+    @GetMapping("unit2/formnewtonphs")
+    public String formnewtonphs(Model model) {
+
+        NewtonRaphson newtonraphson = new NewtonRaphson();
+        
+        model.addAttribute("newtonraphson",newtonraphson);
+        return "unit2/newtonraphson/formnewtonphs";
+    }
+    
+    @PostMapping("/unit2/solvenewtonphs")
+    public String solvenewtonphs(NewtonRaphson newtonraphson ,Model model){
+        
+        
+        var solveNewtonRaphson = NewtonRaphsonservice.AlgoritmoNewtonRaphson(newtonraphson);
+        log.info("Arreglo"+solveNewtonRaphson);
+        
+        
+        model.addAttribute("solvenewtonphs", solveNewtonRaphson);
+        return "/unit2/newtonraphson/solvenewtonphs";
     }
     
 }
