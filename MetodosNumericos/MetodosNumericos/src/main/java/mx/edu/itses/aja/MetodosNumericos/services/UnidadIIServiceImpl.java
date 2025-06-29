@@ -1,11 +1,13 @@
 package mx.edu.itses.aja.MetodosNumericos.services;
 
 import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.itses.aja.MetodosNumericos.domain.Biseccion;
 import mx.edu.itses.aja.MetodosNumericos.domain.NewtonRaphson;
 import mx.edu.itses.aja.MetodosNumericos.domain.PuntoFijo;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
+import mx.edu.itses.aja.MetodosNumericos.domain.Secante;
 import mx.edu.itses.aja.MetodosNumericos.services.Funciones;
 import mx.edu.itses.aja.MetodosNumericos.services.UnidadllService;
 import org.springframework.stereotype.Service;
@@ -197,6 +199,59 @@ public class UnidadIIServiceImpl implements UnidadllService {
             XI = XR;
         }
         return respuesta;
+    }
+
+    @Override
+    public ArrayList<Secante> AlgoritmoSecante(Secante secante) {
+        ArrayList<Secante> resultado = new ArrayList<>();
+
+        double xi0 = secante.getXiAnterior();
+        System.out.println("Valor xi-1 recibido: " + secante.getXiAnterior());
+
+        double xi1 = secante.getXi();
+        double ea = 100;
+        int iteraciones = secante.getIteracionesMaximas();
+        double tolerancia = secante.getTolerancia();
+        String funcion = secante.getFuncion();
+
+        for (int i = 1; i <= iteraciones; i++) {
+            double fx0 = Funciones.Ecuacion(funcion, xi0);
+            double fx1 = Funciones.Ecuacion(funcion, xi1);
+
+            if ((fx1 - fx0) == 0) {
+                break;
+            }
+
+            double numerador = fx1 * (xi1 - xi0);
+            double denominador = fx1 - fx0;
+            double xr = xi1 - numerador / denominador;
+
+            if (i > 1) {
+                ea = Funciones.ErrorRelativo(xr, xi1);
+            }
+
+            Secante renglon = new Secante();
+            renglon.setIteracion(i);
+            renglon.setXiAnterior(xi0);
+            renglon.setXi(xi1);
+            renglon.setFxAnterior(fx0);
+            renglon.setFx(fx1);
+            renglon.setXr(xr);
+            renglon.setEa(ea);
+            renglon.setTolerancia(tolerancia);
+            renglon.getIteracionesMaximas();
+            renglon.setFuncion(funcion);
+
+            resultado.add(renglon);
+
+            if (ea <= tolerancia) {
+                break;
+            }
+
+            xi0 = xi1;
+            xi1 = xr;
+        }
+        return resultado;
     }
 
 }

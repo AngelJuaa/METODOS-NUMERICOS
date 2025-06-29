@@ -6,6 +6,7 @@ import mx.edu.itses.aja.MetodosNumericos.domain.Biseccion;
 import mx.edu.itses.aja.MetodosNumericos.domain.NewtonRaphson;
 import mx.edu.itses.aja.MetodosNumericos.domain.PuntoFijo;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
+import mx.edu.itses.aja.MetodosNumericos.domain.Secante;
 import mx.edu.itses.aja.MetodosNumericos.services.Funciones;
 import mx.edu.itses.aja.MetodosNumericos.services.UnidadllService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class Unit2Controller {
     private UnidadllService puntofijoservice;
      @Autowired
     private UnidadllService NewtonRaphsonservice;
+     @Autowired
+    private UnidadllService solvesecanteservice;
 
     @GetMapping("unit2/formbisection")
     public String formBiseccion(Model model) {
@@ -113,6 +116,26 @@ public class Unit2Controller {
         
         model.addAttribute("solvenewtonphs", solveNewtonRaphson);
         return "/unit2/newtonraphson/solvenewtonphs";
+    }
+    @GetMapping("unit2/formsecante")
+    public String formsecante(Model model) {
+
+        Secante secante = new Secante();
+        
+        model.addAttribute("secante",secante);
+        return "unit2/secante/formsecante";
+    }
+    
+    @PostMapping("/unit2/solvesecante")
+    public String solvesecante(Secante secante ,Model model){
+        
+        
+        var solvesecante = solvesecanteservice.AlgoritmoSecante(secante);
+        log.info("Arreglo"+solvesecante);
+        
+        
+        model.addAttribute("solvesecante", solvesecante);
+        return "/unit2/secante/solvesecante";
     }
     
 }
