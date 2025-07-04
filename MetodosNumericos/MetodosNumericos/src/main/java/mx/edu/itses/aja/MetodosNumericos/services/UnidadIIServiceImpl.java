@@ -8,6 +8,7 @@ import mx.edu.itses.aja.MetodosNumericos.domain.NewtonRaphson;
 import mx.edu.itses.aja.MetodosNumericos.domain.PuntoFijo;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
 import mx.edu.itses.aja.MetodosNumericos.domain.Secante;
+import mx.edu.itses.aja.MetodosNumericos.domain.SecanteModificado;
 import mx.edu.itses.aja.MetodosNumericos.services.Funciones;
 import mx.edu.itses.aja.MetodosNumericos.services.UnidadllService;
 import org.springframework.stereotype.Service;
@@ -253,5 +254,62 @@ public class UnidadIIServiceImpl implements UnidadllService {
         }
         return resultado;
     }
+
+    @Override
+    public ArrayList<SecanteModificado> AlgoritmoSecanteModificado(SecanteModificado secantemodificado) {
+    ArrayList<SecanteModificado> resultado = new ArrayList<>();
+
+    double xi = secantemodificado.getXi();
+    double delta = secantemodificado.getDelta();
+    double ea = 100;
+    int iteracionesMaximas = secantemodificado.getIteracionesMaximas();
+    double tolerancia = secantemodificado.getTolerancia();
+    String funcion = secantemodificado.getFuncion();
+
+    System.out.println("Valor xi inicial recibido: " + xi);
+    System.out.println("Valor delta recibido: " + delta);
+
+    for (int i = 1; i <= iteracionesMaximas; i++) {
+        double fxi = Funciones.Ecuacion(funcion, xi);
+        double fxiDelta = Funciones.Ecuacion(funcion, xi + delta * xi);
+
+        double denominador = (fxiDelta - fxi) / (delta * xi);
+
+        if (denominador == 0 || Double.isInfinite(fxi) || Double.isNaN(fxi) ||
+            Double.isInfinite(fxiDelta) || Double.isNaN(fxiDelta)) {
+            System.out.println("División por cero o valor de función inválido. Deteniendo iteraciones.");
+            break;
+        }
+
+        double xr = xi - (fxi / denominador);
+
+        if (i > 1) {
+            ea = Funciones.ErrorRelativo(xr, xi);
+        }
+
+        SecanteModificado renglon = new SecanteModificado();
+        renglon.setIteracion(i);
+        renglon.setXi(xi);
+        renglon.setXiAnterior(0.0);
+        renglon.setFx(fxi);
+        renglon.setFxAnterior(fxiDelta);
+        renglon.setXr(xr);
+        renglon.setEa(ea);
+        renglon.setTolerancia(tolerancia);
+        renglon.setIteracionesMaximas(iteracionesMaximas);
+        renglon.setFuncion(funcion);
+        renglon.setDelta(delta);
+
+        resultado.add(renglon);
+
+        if (ea <= tolerancia) {
+            break;
+        }
+
+        xi = xr;
+    }
+
+    return resultado;
+}
 
 }

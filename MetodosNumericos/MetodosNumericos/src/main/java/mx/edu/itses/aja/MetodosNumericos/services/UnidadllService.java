@@ -7,6 +7,7 @@ import mx.edu.itses.aja.MetodosNumericos.domain.NewtonRaphson;
 import mx.edu.itses.aja.MetodosNumericos.domain.PuntoFijo;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaFalsa;
 import mx.edu.itses.aja.MetodosNumericos.domain.Secante;
+import mx.edu.itses.aja.MetodosNumericos.domain.SecanteModificado;
 
 
 public interface UnidadllService {
@@ -16,4 +17,5 @@ public interface UnidadllService {
      public ArrayList<PuntoFijo> AlgoritmoPuntoFijo(PuntoFijo puntofijo);
      public ArrayList<NewtonRaphson> AlgoritmoNewtonRaphson(NewtonRaphson newtonraphson);
      public ArrayList<Secante> AlgoritmoSecante(Secante secante);
+     public ArrayList<SecanteModificado> AlgoritmoSecanteModificado(SecanteModificado secantemodificado);
 }
