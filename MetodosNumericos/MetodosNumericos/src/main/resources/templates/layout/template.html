@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns:th="htt://www.thymeleaf.org">
+    <head>
+        <title>Layout metodos numericos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" th:fragment="menu">
+            <a class="navbar-brand" href="/">
+                <img th:src="@{/images/logo.itses.png}"
+                     width="125" height="38"
+                     class="d-inline-block align-top">
+                METODOS NUMERICOS</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                    <a class="nav-link" href="/unit2">Ecuaciones Algebraicas</a>
+                    <a class="nav-link disable" href="/unit3">Sistemas Lineales</a>
+                    <a class="nav-link disable" href="/unit2">Ajuste de Curvas</a>
+                    <a class="nav-link disable" href="/unit2">Diferenciación e Integración</a>
+                    <a class="nav-link disable" href="/unit2">Ecuaciones Diferenciales</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container" th:fragment="bannerunit2">
+            <div class="row">
+                <img class="img-fluid w-100"th:src="@{/images/metodosnumericos.png}"/>
+            </div>
+        </div>
+        <div class="container" th:fragment="bannerunit3">
+            <div class="row">
+                <img class="img-fluid w-100"th:src="@{/images/unit3.jpg}"/>
+            </div>
+        </div>
+    </body>
+</html>

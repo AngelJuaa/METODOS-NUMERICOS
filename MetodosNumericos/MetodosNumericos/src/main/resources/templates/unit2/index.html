@@ -20,60 +20,55 @@
         ></script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">
-                    <img th:src="@{/images/logo.itses.png}"
-                         width="125" height="38"
-                         class="d-inline-block align-top">
-                    METODOS NUMERICOS
 
-                </a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class="navbar-nav">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
-                            <a class="nav-link" href="/unit2">Solucion de Ecuaciones</a>
-                            <a class="nav-link disable" href="/unit3">SL</a>
-                            <a class="nav-link disable" href="/unit4">AJC</a>
-                            <a class="nav-link disable" href="/unit5">DeI</a>
-                            <a class="nav-link disable" href="/unit6">Ecuaciones Diferenciales</a>
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div>
         <div class="container">
-            <div class="row">
-                <img class="img-fluid w-100"th:src="@{/images/metodosnumericos.png}"/>
-            </div>
+            <nav th:replace="/layout/template :: menu"></nav>
+            <div th:replace="/layout/template :: bannerunit2"></div>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ecuaciones Algebráicas</li>
+                </ol>
+            </nav>
         </div>
-    </div>
-    <div class="container">
-        <h1 class="text">Solucion de Ecuaciones Algebraicas</h1>
-        <h3 class="text">Metodos Numericos</h3>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formbisection">Biseccion</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formreglafalsa">Regla Falsa</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formpuntofijo">Punto Fijo</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formnewtonphs">NewtonRaphson</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formsecante">Secante</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formsecanteM">Secante Modificado</a>
-            </li>
+        <div class="container py-5 px-4 bg-light rounded shadow mb-5">
+            <h1 class="text-center mb-3 fw-bold text-primary">Solución de Ecuaciones Algebraicas</h1>
+            <h3 class="text-center mb-4 text-secondary">Métodos Numéricos</h3>
 
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active fw-semibold text-dark bg-white border rounded mb-2 px-3 py-2" href="/unit2/formbisection">
+                        Bisección
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold text-dark bg-white border rounded mb-2 px-3 py-2" href="/unit2/formreglafalsa">
+                        Regla Falsa
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold text-dark bg-white border rounded mb-2 px-3 py-2" href="/unit2/formpuntofijo">
+                        Punto Fijo
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold text-dark bg-white border rounded mb-2 px-3 py-2" href="/unit2/formnewtonphs">
+                        Newton-Raphson
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold text-dark bg-white border rounded mb-2 px-3 py-2" href="/unit2/formsecante">
+                        Secante
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold text-dark bg-white border rounded mb-2 px-3 py-2" href="/unit2/formsecanteM">
+                        Secante Modificado
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-    </div>
-</body>
+    </body>
 </html>

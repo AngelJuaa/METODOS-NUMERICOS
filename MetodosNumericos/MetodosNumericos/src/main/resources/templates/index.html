@@ -2,7 +2,7 @@
 
 <html xmlns:th="htt://www.thymeleaf.org">
     <head>
-        <title>Metodos Numericos</title>
+        <title>Metodos Numericos1</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap CSS -->
@@ -20,64 +20,72 @@
         ></script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">
-                    <img th:src="@{/images/logo.itses.png}"
-                         width="125" height="38"
-                         class="d-inline-block align-top">
-                    METODOS NUMERICOS
-
-                </a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class="navbar-nav">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
-                            <a class="nav-link" href="/unit2">Solucion de Ecuaciones</a>
-                            <a class="nav-link disable" href="/unit3">SL</a>
-                            <a class="nav-link disable" href="/unit4">AJC</a>
-                            <a class="nav-link disable" href="/unit5">DeI</a>
-                            <a class="nav-link disable" href="/unit6">Ecuaciones Diferenciales</a>
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div>
+        <nav th:replace="/layout/template :: menu"></nav>
         <div class="container">
             <div class="row">
                 <img class="img-fluid w-100"th:src="@{/images/metodosnumericos.png}"/>
             </div>
         </div>
-    </div>
-        --<!-- comment 
-    <div class="container">
-        <h1 class="text">Solucion de Ecuaciones Algebraicas</h1>
-        <h3 class="text">Metodos Numericos</h3>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formbisection">Biseccion</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formreglafalsa">Regla Falsa</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formpuntofijo">Punto Fijo</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formnewtonphs">NewtonRaphson</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formsecante">Secante</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/unit2/formsecanteM">Secante Modificado</a>
-            </li>
+        
+        <div class="container mt-4 mb-5">
+            <h2 class="mb-4">Solución de Ecuaciones Algebraicas</h2>
+            <p>Consiste en encontrar los valores de una variable que satisfacen una ecuación. Cuando no se puede resolver de forma exacta, se utilizan métodos numéricos.</p>
+
+            <h2 class="mt-4 mb-2">Métodos Numéricos</h2>
+            <p>Son técnicas aproximadas que permiten encontrar soluciones a ecuaciones cuando no se pueden resolver analíticamente.</p>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Bisección</h5>
+                            <p class="card-text">Divide un intervalo en dos partes iguales y elige la subparte donde cambia el signo de la función. Es lento pero muy seguro.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Regla Falsa</h5>
+                            <p class="card-text">Similar a la bisección, pero usa una recta secante para estimar la raíz, lo que mejora la velocidad de convergencia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Punto Fijo</h5>
+                            <p class="card-text">Reescribe la ecuación como x = g(x) y usa iteraciones sucesivas. Requiere que g(x) cumpla ciertas condiciones para converger.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Newton-Raphson</h5>
+                            <p class="card-text">Usa la derivada de la función para acercarse rápidamente a la raíz. Es muy eficiente si parte de una buena aproximación inicial.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Secante</h5>
+                            <p class="card-text">Es una variante del método de Newton, pero sin necesidad de calcular derivadas. Usa dos puntos previos para estimar la raíz.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Secante Modificado</h5>
+                            <p class="card-text">Mejora el método de la secante al fijar uno de los puntos y actualizar solo el otro, ideal para funciones con comportamiento estable.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-    </div>
-          -->
-          
-          
-</body>
+    </body>
 </html>

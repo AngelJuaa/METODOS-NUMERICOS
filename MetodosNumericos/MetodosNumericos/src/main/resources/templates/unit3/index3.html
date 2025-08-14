@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Métodos Numéricos</title>
+
+        <!-- Bootstrap CSS -->
+        <link 
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+            rel="stylesheet" 
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+            crossorigin="anonymous"
+            >
+        <!-- Bootstrap JS and dependencies -->
+        <script 
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <div class="container">
+            <nav th:replace="~{/layout/template :: menu}"> </nav>
+            <div th:replace="~{/layout/template :: bannerunit3}"></div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Sistemas Lineales</li>
+                </ol>
+            </nav>
+            <div class="container">
+                <h1 class="text">Solución de Sistemas de ecuaciones lineales</h1>
+                <p>Muchas de las ecuaciones fundamentales en ingeniería se basan en las leyes de conservación. 
+                    Entre algunas cantidades conocidas que se someten a tales leyes están la masa,
+                    la energía y el momentum. En términos matemáticos, estos principios nos conducen a ecuaciones de
+                    balance o de continuidad que relacionan el comportamiento del sistema, al representarlo por los
+                    niveles o respuesta de la cantidad que se modela con las propiedades o características del sistema,
+                    y por los estímulos externos o funciones forzadas que actúan sobre el sistema.</p>
+                <br>
+                <p>En esta unidad veremos  la técnica fundamental
+                    para resolver sistemas algebraicos lineales. Esos procedimientos se presentan para ofrecer cierto conocimiento visual y
+                    porque uno de los métodos (la eliminación de incógnitas) representa la base para la eliminación de
+                    Gauss. </p>
+                <br>
+                <h2>SISTEMAS DE ECUACIONES LINEALES</h2>
+                <h3 class="text">Métodos directos</h3>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/unit3/formcramer">Regla de Cramer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/unit3/formElimGauss">Eliminacion Gaussiana</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

@@ -9,16 +9,18 @@
     >
 </head>
 <body>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img th:src="@{/images/logo.itses.png}"
-                     width="125" height="38"
-                     class="d-inline-block align-top">
-                MÉTODOS NUMÉRICOS - Punto Fijo
-            </a>
+    <div class="container">
+            <nav th:replace="/layout/template :: menu"></nav>
+            <div th:replace="/layout/template :: bannerunit2"></div>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="/unit2">Ecuaciones Algebráicas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Formulario Punto Fijo</li>
+                </ol>
+            </nav>
         </div>
-    </nav>
 
     <div class="container">
         <h2>Iteración de Punto Fijo</h2>
