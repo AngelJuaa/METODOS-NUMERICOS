@@ -1,8 +1,15 @@
 package mx.edu.itses.aja.MetodosNumericos.services;
 
+<<<<<<< HEAD
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+=======
+import static java.lang.Math.abs;
+import org.mariuszgromada.math.mxparser.*;
+import org.matheclipse.core.eval.ExprEvaluator;
+import org.matheclipse.core.interfaces.IExpr;
+>>>>>>> 62c339775070e1c1db0ea6ef85e07c23bb284a57
 
 public class Funciones {
 
@@ -16,6 +23,7 @@ public class Funciones {
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName("JavaScript");
 
+<<<<<<< HEAD
             // Evalúa la función
             Object resultado = engine.eval(funcion);
             return Double.parseDouble(resultado.toString());
@@ -50,4 +58,31 @@ public class Funciones {
 
         return funcion;
     }
+=======
+        return f;
+    }
+
+    public static double EvaluarG(String gx, double xi) {
+        double resultado;
+        Function funcion = new Function(gx);  // g(x) como cadena, por ejemplo: "g(x) = cos(x)"
+        Expression evaluacion = new Expression("g(" + xi + ")", funcion);
+        resultado = evaluacion.calculate();
+        return resultado;
+    }
+
+    public static double Derivada(String fx, double x) {
+        ExprEvaluator util = new ExprEvaluator();
+        IExpr derivada = util.eval("D(" + fx + ", x)");
+        String derivadaEvaluar = derivada.toString().replace("x", "(" + x + ")");
+        IExpr resultado = util.eval(derivadaEvaluar);
+        //return Double.parseDouble(resultado.toString());
+        String valor = resultado.toString().replace("*10^","E");
+        return Double.parseDouble(valor);
+    }
+
+    public static double ErrorRelativo(double ValorNuevo, double ValorAnterior) {
+        return abs((ValorNuevo - ValorAnterior) / ValorNuevo * 100);
+    }
+
+>>>>>>> 62c339775070e1c1db0ea6ef85e07c23bb284a57
 }

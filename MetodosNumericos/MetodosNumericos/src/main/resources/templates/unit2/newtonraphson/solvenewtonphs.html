@@ -26,7 +26,7 @@
                     <img th:src="@{/images/logo.itses.png}"
                          width="125" height="38"
                          class="d-inline-block align-top">
-                    METODOS NUMERICOS - Regla Falsa
+                    METODOS NUMERICOS - NewtonRaphson
 
                 </a>
             </div>
@@ -37,26 +37,24 @@
     <table class="table">
         <thead>
             <tr >
-                <th scope="col">#</th>
-                <th scope="col">XL</th>
-                <th scope="col">XU</th>
-                <th scope="col">XR</th>
-                <th scope="col">F(XL)</th>
-                <th scope="col">F(XU)</th>
-                <th scope="col">F(XR)</th>
+                <th scope="col"># Iteracion</th>
+                <th scope="col">XI</th>
+                <th scope="col">F(XI)</th>
+                <th scope="col">FD´(XI)</th>
+                <th scope="col">FX+1</th>
+                
                 <th scope="col">Error Aprox.</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="solve,iter:${solveReglaFalsa}">
+            <tr th:each="solve,iter:${solvenewtonphs}">
                 <td th:text="${iter.index}"># de Iteración</td>
-                <td th:text="${solve.XL}">Valor inferior XL</td>
-                <td th:text="${solve.XU}">Valor superior XU</td>
-                <td th:text="${solve.XR}">Valor calculado Raiz XR</td>
-                <td th:text="${solve.FXL}">Funcion evaluada en XL</td>
-                <td th:text="${solve.FXU}">Funcion evaluada en XU</td>
-                <td th:text="${solve.FXR}">Funcion evaluada en XR</td>
-                <td th:text="${solve.Ea}">Error estimado aproximación actual</td>
+                <td th:text="${solve.XI}"> </td>
+                <td th:text="${solve.FX}"></td>
+                <td th:text="${solve.FDX}"></td>
+                <td th:text="${solve.XR}"></td>
+                
+                <td th:text="${solve.Ea}"></td>
 
             </tr>
 
