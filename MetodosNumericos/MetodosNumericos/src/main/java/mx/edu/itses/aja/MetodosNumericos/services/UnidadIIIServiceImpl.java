@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import mx.edu.itses.aja.MetodosNumericos.domain.EliminacionGaussiana;
+import mx.edu.itses.aja.MetodosNumericos.domain.GaussJordan;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaCramer;
 
 @Service
@@ -242,6 +243,65 @@ public class UnidadIIIServiceImpl implements UnidadIIIService {
             sb.append(" = ").append(String.format("%.4f", resultados[i])).append("\n");
         }
         return sb.toString();
+    }
+
+    @Override
+    public GaussJordan AlgoritmoGaussJordan(GaussJordan modelGaussJordan) {
+        int n = modelGaussJordan.getMN();
+        ArrayList<Double> A = modelGaussJordan.getMatrizA();
+        ArrayList<Double> B = modelGaussJordan.getVectorB();
+        double[][] matriz = new double[n][n + 1];
+
+        // Llenar matriz aumentada
+        int index = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matriz[i][j] = A.get(index++);
+            }
+            matriz[i][n] = B.get(i);
+        }
+
+        // Algoritmo de Gauss-Jordan
+        for (int i = 0; i < n; i++) {
+            // Pivoteo parcial
+            int max = i;
+            for (int k = i + 1; k < n; k++) {
+                if (Math.abs(matriz[k][i]) > Math.abs(matriz[max][i])) {
+                    max = k;
+                }
+            }
+            double[] temp = matriz[i];
+            matriz[i] = matriz[max];
+            matriz[max] = temp;
+
+            // Normalizar fila pivote
+            double pivote = matriz[i][i];
+            if (Math.abs(pivote) < 1e-10) {
+                throw new RuntimeException("Sistema sin solución única");
+            }
+            for (int j = 0; j <= n; j++) {
+                matriz[i][j] /= pivote;
+            }
+
+            // Eliminación en todas las filas
+            for (int k = 0; k < n; k++) {
+                if (k != i) {
+                    double factor = matriz[k][i];
+                    for (int j = 0; j <= n; j++) {
+                        matriz[k][j] -= factor * matriz[i][j];
+                    }
+                }
+            }
+        }
+
+        // Guardar solución en model
+        ArrayList<Double> vectorX = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            vectorX.add(matriz[i][n]);
+        }
+        modelGaussJordan.setVectorX(vectorX);
+
+        return modelGaussJordan;
     }
 
 }

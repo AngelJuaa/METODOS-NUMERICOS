@@ -4,6 +4,7 @@ package mx.edu.itses.aja.MetodosNumericos.web;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.itses.aja.MetodosNumericos.domain.EliminacionGaussiana;
+import mx.edu.itses.aja.MetodosNumericos.domain.GaussJordan;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaCramer;
 import mx.edu.itses.aja.MetodosNumericos.services.UnidadIIIService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class Unit3Controller {
     public String index(Model model){
         return "unit3/index3";
     }
+    ////////////////////////////////////
     @GetMapping("/unit3/formcramer")
     public String formCramer(Model model){
       ReglaCramer modelCramer = new ReglaCramer();
@@ -37,7 +39,7 @@ public class Unit3Controller {
         model.addAttribute("solveCramer",solveCramer);
         return "unit3/cramer/solvecramer";
     }
-    
+    /////////////////////////////////////////////
     @GetMapping("/unit3/formElimGauss")
     public String formGauss(Model model) {
         EliminacionGaussiana modelGauss = new EliminacionGaussiana();
@@ -55,4 +57,21 @@ public class Unit3Controller {
         model.addAttribute("solveElimGauss", solveElimGauss);
         return "unit3/elimGauss/solveElimGauss";
     }
+    
+    ////////////////////////////////////////////////////
+    @GetMapping("/unit3/formgaussjordan")
+    public String formGaussJordan(Model model) {
+        GaussJordan modelGaussJordan = new GaussJordan();
+        model.addAttribute("modelGaussJordan", modelGaussJordan);
+        return "unit3/GaussJordan/formgaussjordan";
+    }
+    
+    @PostMapping("/unit3/solvegaussjordan")
+    public String solveGauss(GaussJordan modelGaussJordan, Errors errores, Model model) {
+        ArrayList<Double> A = modelGaussJordan.getMatrizA();
+        var solveGauss = unidadIIIsrv.AlgoritmoGaussJordan(modelGaussJordan);
+        model.addAttribute("solvegaussjordan", solveGauss);
+        return "unit3/GaussJordan/solvegaussjordan";
+    }
+    ////////////////////////////////////////////
 }
