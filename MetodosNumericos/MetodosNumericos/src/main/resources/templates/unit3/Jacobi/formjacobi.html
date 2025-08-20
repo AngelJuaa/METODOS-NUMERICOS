@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Método de Jacobi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="/layout/template :: menu"></nav>
+    <div th:replace="/layout/template :: bannerunit3"></div>
+
+    <form class="row g-3" th:action="@{/unit3/solvejacobi}" method="post" th:object="${modelJacobi}">
+        <h1>Método Iterativo: Jacobi</h1>
+
+        <div class="col-md-3">
+            <label for="MN" class="form-label">Dimensión de la matriz</label>
+            <input type="number" class="form-control" id="MN" name="MN" min="2" max="4"required>
+        </div>
+
+        <div class="col-md-3">
+            <label for="iteraciones" class="form-label">Máx. Iteraciones</label>
+            <input type="number" class="form-control" id="iteraciones" name="iteraciones" value="50" min="1">
+        </div>
+
+        <div class="col-md-3">
+            <label for="tolerancia" class="form-label">Tolerancia</label>
+            <input type="number" step="0.000001" class="form-control" id="tolerancia" name="tolerancia" value="0.0001">
+        </div>
+
+        <div class="col-md-12">
+            <button type="button" class="btn btn-secondary" onclick="crearMatriz()">Crear Matriz</button>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <p>Matriz A</p>
+                <div id="ContenedorMatriz"></div>
+            </div>
+            <div class="col-2">
+                <p>Vector B</p>
+                <div id="ContenedorB"></div>
+            </div>
+            <div class="col-3">
+                <p>Valores Iniciales X0</p>
+                <div id="ContenedorX0"></div>
+            </div>
+        </div>
+
+        <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-primary">Resolver</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function crearMatriz() {
+        let n = parseInt(document.getElementById("MN").value);
+        if (!n || n <= 0) return;
+
+        let contA = document.getElementById("ContenedorMatriz");
+        let contB = document.getElementById("ContenedorB");
+        let contX0 = document.getElementById("ContenedorX0");
+        contA.innerHTML = "";
+        contB.innerHTML = "";
+        contX0.innerHTML = "";
+
+        for (let i = 0; i < n; i++) {
+            let row = document.createElement("div");
+            row.className = "row";
+            contA.appendChild(row);
+
+            for (let j = 0; j < n; j++) {
+                let col = document.createElement("div");
+                col.className = "col";
+                let inp = document.createElement("input");
+                inp.type = "number";
+                inp.name = "matrizA[]";
+                inp.className = "form-control";
+                inp.placeholder = "a" + (i+1) + (j+1);
+                col.appendChild(inp);
+                row.appendChild(col);
+            }
+
+            let inpB = document.createElement("input");
+            inpB.type = "number";
+            inpB.name = "vectorB[]";
+            inpB.className = "form-control mb-2";
+            inpB.placeholder = "b" + (i+1);
+            contB.appendChild(inpB);
+
+            let inpX0 = document.createElement("input");
+            inpX0.type = "number";
+            inpX0.name = "x0[]";
+            inpX0.className = "form-control mb-2";
+            inpX0.placeholder = "x" + (i+1) + "0";
+            contX0.appendChild(inpX0);
+        }
+    }
+</script>
+</body>
+</html>

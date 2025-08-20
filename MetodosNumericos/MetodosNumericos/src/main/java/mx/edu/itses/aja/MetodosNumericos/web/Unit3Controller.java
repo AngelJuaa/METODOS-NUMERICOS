@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.itses.aja.MetodosNumericos.domain.EliminacionGaussiana;
 import mx.edu.itses.aja.MetodosNumericos.domain.GaussJordan;
+import mx.edu.itses.aja.MetodosNumericos.domain.Jacobi;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaCramer;
 import mx.edu.itses.aja.MetodosNumericos.services.UnidadIIIService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,4 +75,21 @@ public class Unit3Controller {
         return "unit3/GaussJordan/solvegaussjordan";
     }
     ////////////////////////////////////////////
+    
+    @GetMapping("/unit3/formjacobi")
+    public String formjacobi(Model model) {
+        Jacobi modelJacobi = new Jacobi();
+        model.addAttribute("modelJacobi", modelJacobi);
+        return "unit3/jacobi/formjacobi";
+    }
+    
+    @PostMapping("/unit3/solvejacobi")
+    public String solvejacobi(Jacobi modelJacobi, Errors errores, Model model) {
+        ArrayList<Double> A = modelJacobi.getMatrizA();
+        var solveJacobi = unidadIIIsrv.AlgoritmoJacobi(modelJacobi);
+        model.addAttribute("modelJacobi", modelJacobi); 
+        model.addAttribute("solvejacobi", solveJacobi);
+        return "unit3/jacobi/solvejacobi";
+    }
+    
 }
