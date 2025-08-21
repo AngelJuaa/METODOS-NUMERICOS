@@ -7,8 +7,15 @@
 </head>
 <body>
 <div class="container">
-    <nav th:replace="/layout/template :: menu"></nav>
-    <div th:replace="/layout/template :: bannerunit3"></div>
+   <nav th:replace="/layout/template :: menu"> </nav>
+            <div th:replace="/layout/template :: bannerunit3"></div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="/unit3">Sistemas Lineales</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Jacobi</li>
+                </ol>
+            </nav>
 
     <form class="row g-3" th:action="@{/unit3/solvejacobi}" method="post" th:object="${modelJacobi}">
         <h1>Método Iterativo: Jacobi</h1>
@@ -76,6 +83,7 @@
                 let inp = document.createElement("input");
                 inp.type = "number";
                 inp.name = "matrizA[]";
+                inp.step = "any";
                 inp.className = "form-control";
                 inp.placeholder = "a" + (i+1) + (j+1);
                 col.appendChild(inp);
@@ -85,6 +93,7 @@
             let inpB = document.createElement("input");
             inpB.type = "number";
             inpB.name = "vectorB[]";
+            inpB.step = "any";
             inpB.className = "form-control mb-2";
             inpB.placeholder = "b" + (i+1);
             contB.appendChild(inpB);
@@ -92,6 +101,7 @@
             let inpX0 = document.createElement("input");
             inpX0.type = "number";
             inpX0.name = "x0[]";
+            inpX0.step = "any";
             inpX0.className = "form-control mb-2";
             inpX0.placeholder = "x" + (i+1) + "0";
             contX0.appendChild(inpX0);

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import mx.edu.itses.aja.MetodosNumericos.domain.EliminacionGaussiana;
 import mx.edu.itses.aja.MetodosNumericos.domain.GaussJordan;
+import mx.edu.itses.aja.MetodosNumericos.domain.GaussSeidel;
 import mx.edu.itses.aja.MetodosNumericos.domain.Jacobi;
 import mx.edu.itses.aja.MetodosNumericos.domain.ReglaCramer;
 
@@ -348,5 +349,45 @@ public class UnidadIIIServiceImpl implements UnidadIIIService {
         modelJacobi.setVectorX(x0);
         return modelJacobi;
 
+    }
+
+    @Override
+    public GaussSeidel AlgoritmoGaussSeidel(GaussSeidel modelGaussSeidel) {
+        int n = modelGaussSeidel.getMN();
+        ArrayList<Double> A = modelGaussSeidel.getMatrizA();
+        ArrayList<Double> B = modelGaussSeidel.getVectorB();
+        ArrayList<Double> X = new ArrayList<>(modelGaussSeidel.getX0());
+        double tol = modelGaussSeidel.getTolerancia();
+        int maxIter = modelGaussSeidel.getIteraciones();
+
+        for (int i = 0; i < maxIter; i++) {
+            ArrayList<Double> Xold = new ArrayList<>(X);
+
+            for (int j = 0; j < n; j++) {
+                double sum = 0.0;
+                for (int k = 0; k < n; k++) {
+                    if (k != j) {
+                        sum += A.get(j * n + k) * X.get(k);
+                    }
+                }
+                double newX = (B.get(j) - sum) / A.get(j * n + j);
+                X.set(j, newX);
+            }
+
+            // Comprobar tolerancia
+            boolean dentroTol = true;
+            for (int j = 0; j < n; j++) {
+                if (Math.abs(X.get(j) - Xold.get(j)) > tol) {
+                    dentroTol = false;
+                    break;
+                }
+            }
+            if (dentroTol) {
+                break;
+            }
+        }
+
+        modelGaussSeidel.setVectorX(X);
+        return modelGaussSeidel;
     }
 }
